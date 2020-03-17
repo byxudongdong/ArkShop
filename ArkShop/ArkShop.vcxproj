@@ -32,14 +32,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>D:\服务器配置\ARKAPICode\Ark-Server-Plugins-master\ArkShop\Libs;$(LibraryPath)</LibraryPath>
-    <IncludePath>D:\服务器配置\ARKAPICode\Ark-Server-Plugins-master\Permissions\Permissions\Public;D:\服务器配置\ARKAPICode\ARK-Server-API-master\version\Core\Public;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\服务器配置\插件相关\ARKAPICode\Ark-Server-Plugins-master\ArkShop\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\服务器配置\插件相关\ARKAPICode\Ark-Server-Plugins-master\Permissions\Permissions\Public;D:\服务器配置\插件相关\ARKAPICode\Ark-Server-Plugins-master\ARK-Server-API\version\Core\Public;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>

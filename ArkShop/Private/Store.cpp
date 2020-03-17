@@ -266,12 +266,46 @@ namespace ArkShop::Store
 		if (DBHelper::IsPlayerExists(steam_id))
 		{
 			auto items_list = config["ShopItems"];
+			FString olditem_id = item_id;
+			FString newitem_id = item_id;
+			if (olditem_id.ToString().find("金属矿"))
+			{
+				std::string tempStr = "jinshukuang";
+				newitem_id = tempStr.c_str();
+			}
+			else if (olditem_id.ToString().find("水泥"))
+			{
+				std::string tempStr = "shuini";
+				newitem_id = tempStr.c_str();
+			}
+			else if (olditem_id.ToString().find("水晶"))
+			{
+				std::string tempStr = "shuijin";
+				newitem_id = tempStr.c_str();
+			}
+			else {
+				newitem_id = item_id;
+			}
 
-			auto item_entry_iter = items_list.find(item_id.ToString());
+			const std::wstring log = fmt::format(L"调试信息: \"{}\". Amount - {}",
+				*olditem_id, *newitem_id);
+			ShopLog::GetLog()->info(ArkApi::Tools::Utf8Encode(log));
+
+			auto item_entry_iter = items_list.find(newitem_id.ToString());
 			if (item_entry_iter == items_list.end())
 			{
 				ArkApi::GetApiUtils().SendChatMessage(player_controller, GetText("Sender"),
 				                                      *GetText("WrongId"));
+
+				ArkApi::GetApiUtils().SendChatMessage(player_controller, TEXT("商品不存在"),
+					*newitem_id);
+
+				const std::wstring log = fmt::format(L"{}({}) 商品不存在: \"{}\". Amount - {}",
+					*ArkApi::IApiUtils::GetSteamName(player_controller), steam_id,
+					*newitem_id, amount);
+
+				ShopLog::GetLog()->info(ArkApi::Tools::Utf8Encode(log));
+
 				return false;
 			}
 
@@ -323,6 +357,13 @@ namespace ArkShop::Store
 				const std::wstring log = fmt::format(L"{}({}) bought item \"{}\". Amount - {}",
 				                                     *ArkApi::IApiUtils::GetSteamName(player_controller), steam_id,
 				                                     *item_id, amount);
+
+				ShopLog::GetLog()->info(ArkApi::Tools::Utf8Encode(log));
+			}
+			else {
+				const std::wstring log = fmt::format(L"{}({}) 购买失败 \"{}\". Amount - {}",
+					*ArkApi::IApiUtils::GetSteamName(player_controller), steam_id,
+					*item_id, amount);
 
 				ShopLog::GetLog()->info(ArkApi::Tools::Utf8Encode(log));
 			}
